@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>FinTrack - Personal Finance Tracker</title>
+    <link rel="stylesheet" href="style.css">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+<body>
+    <div class="container">
+        <!-- Auth Section -->
+        <div id="auth-section" class="auth-section">
+            <div class="auth-card">
+                <h1>FinTrack</h1>
+                <p class="subtitle">Your Personal Finance Tracker</p>
+
+                <!-- Login Form -->
+                <div id="login-form" class="form-container">
+                    <h2>Login</h2>
+                    <form id="loginForm">
+                        <div class="form-group">
+                            <label for="login-username">Username</label>
+                            <input type="text" id="login-username" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="login-password">Password</label>
+                            <input type="password" id="login-password" required>
+                        </div>
+                        <button type="submit" class="btn btn-primary">Login</button>
+                    </form>
+                    <p class="toggle-text">
+                        Don't have an account? 
+                        <a href="#" id="show-register">Register here</a>
+                    </p>
+                </div>
+
+                <!-- Registration Form -->
+                <div id="register-form" class="form-container" style="display: none;">
+                    <h2>Register</h2>
+                    <form id="registerForm">
+                        <div class="form-group">
+                            <label for="register-username">Username</label>
+                            <input type="text" id="register-username" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="register-password">Password</label>
+                            <input type="password" id="register-password" required>
+                        </div>
+                        <button type="submit" class="btn btn-primary">Register</button>
+                    </form>
+                    <p class="toggle-text">
+                        Already have an account? 
+                        <a href="#" id="show-login">Login here</a>
+                    </p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Dashboard Section (Hidden by default) -->
+        <div id="dashboard" style="display: none;">
+            <div class="dashboard-header">
+                <h1>Welcome, <span id="username-display"></span>!</h1>
+                <button id="logout-btn" class="btn btn-secondary">Logout</button>
+            </div>
+
+            <!-- Summary Cards -->
+            <div class="summary-cards">
+                <div class="card card-income">
+                    <h3>Total Income</h3>
+                    <p class="amount" id="total-income">$0.00</p>
+                </div>
+                <div class="card card-expense">
+                    <h3>Total Expense</h3>
+                    <p class="amount" id="total-expense">$0.00</p>
+                </div>
+                <div class="card card-balance">
+                    <h3>Balance</h3>
+                    <p class="amount" id="balance">$0.00</p>
+                </div>
+            </div>
+
+            <!-- Main Content: Form and Chart -->
+            <div class="dashboard-content">
+                <!-- Left Column: Add Transaction Form -->
+                <div class="form-section">
+                    <h2>Add Transaction</h2>
+                    <form id="transaction-form">
+                        <div class="form-group">
+                            <label for="amount">Amount ($)</label>
+                            <input type="number" id="amount" step="0.01" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="date">Date</label>
+                            <input type="date" id="date" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="category">Category</label>
+                            <input type="text" id="category" placeholder="e.g., Food, Salary" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="type">Type</label>
+                            <select id="type" required>
+                                <option value="">Select Type</option>
+                                <option value="Income">Income</option>
+                                <option value="Expense">Expense</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label for="description">Description (Optional)</label>
+                            <textarea id="description" rows="3" maxlength="200" placeholder="Additional notes..."></textarea>
+                        </div>
+                        <button type="submit" class="btn btn-add">Add Transaction</button>
+                    </form>
+                </div>
+
+                <!-- Right Column: Chart -->
+                <div class="chart-section">
+                    <h2>Income vs Expense</h2>
+                    <canvas id="expenseChart"></canvas>
+                </div>
+            </div>
+
+            <!-- Transactions Table -->
+            <div class="transactions-section">
+                <h2>Transaction History</h2>
+                <div class="table-container">
+                    <table id="transactions-table">
+                        <thead>
+                            <tr>
+                                <th>Date</th>
+                                <th>Category</th>
+                                <th>Description</th>
+                                <th>Type</th>
+                                <th>Amount</th>
+                                <th>Action</th>
+                            </tr>
+                        </thead>
+                        <tbody id="transactions-body">
+                            <!-- Transactions will be loaded here dynamically -->
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="app.js"></script>
+</body>
+</html>

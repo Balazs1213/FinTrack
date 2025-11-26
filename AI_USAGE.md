@@ -141,3 +141,46 @@
 > 3. Push to remote.
 
 **Eredmény:** A backend stabil állapota feltöltve GitHub-ra.
+
+
+## 11. Frontend: Login és Regisztráció
+**Dátum:** 2025. [aktuális dátum]
+**Használt eszköz:** GitHub Copilot Chat
+**Cél:** A modern webes felület (HTML/CSS) és a kommunikációs logika (JS) létrehozása a belépéshez.
+
+**Használt Prompt:**
+> @workspace We are starting the Frontend implementation. My API is running at "http://localhost:5062".
+> 1. Update index.html (Login/Register forms, dashboard placeholder).
+> 2. Update style.css (modern card UI).
+> 3. Update app.js (POST requests to Auth API, handling localStorage).
+
+**Eredmény:** A frontend sikeresen csatlakozik a backendhez, a regisztráció és belépés működik, a tokent elmentjük.
+
+
+
+## 12. Frontend Integrációs Teszt
+**Dátum:** 2025. [aktuális dátum]
+**Módszer:** Manuális tesztelés böngészőben + DevTools (Network/Application tab).
+**Tesztelt esetek:**
+1. Regisztráció (Sikeres API hívás).
+2. Login (Token mentése LocalStorage-ba).
+3. Oldal újratöltése (Token alapú automatikus belépés).
+4. Logout (Token törlése).
+**Eredmény:** A rendszer stabilan kezeli a felhasználói munkamenetet.
+
+
+## 13. Dashboard: Tranzakciókezelés és Diagram
+**Dátum:** 2025. [aktuális dátum]
+**Használt eszköz:** GitHub Copilot Chat
+**Cél:** A tranzakciók CRUD műveleteinek frontend oldali megvalósítása és az adatok vizualizálása Chart.js segítségével.
+
+**Használt Prompt:**
+> @workspace The Authentication is working perfectly. Now verify the user's token and build the Dashboard functionality.
+> 1. Update index.html (Add Chart.js CDN, Form, Table).
+> 2. Update app.js (Fetch transactions with Bearer token, Render Table, Init Chart.js, Handle Add/Delete).
+> 3. Update style.css (Table and Button styling).
+
+**Eredmény:** A felhasználó látja a saját tranzakcióit listázva és diagramon, tud újat felvenni és törölni. A rendszer automatikusan frissíti a nézetet.
+
+
+
