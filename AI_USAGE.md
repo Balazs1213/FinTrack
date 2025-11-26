@@ -17,3 +17,127 @@
 > 6. Create an empty markdown file named 'AI_USAGE.md' in the root directory.
 
 **Eredmény:** A Copilot sikeresen generált PowerShell scripteket, amiamelyek segítéségvel létrehozta a fájlrendszert.
+
+
+
+## 2. Verziókezelés és GitHub Publikálás
+**Dátum:** 2025. [aktuális dátum]
+**Használt eszköz:** GitHub Copilot Chat
+**Cél:** A helyi git repository inicializálása és a projekt feltöltése GitHub-ra megfelelő leírással.
+
+**Használt Prompt:**
+> @workspace I have the .gitignore file ready in the root directory.
+> Please provide the terminal commands to perform the following version control steps:
+> 1. Initialize a new local git repository.
+> 2. Add all files to the staging area.
+> 3. Commit the changes with message "Initial commit: Project structure setup".
+> 4. Provide commands to create a repo named 'FinTrack' with description: "Homework project for the 'Software Development with AI Support' course..."
+
+**Eredmény:** A Git repository létrejött, a fájlok kommitolásra kerültek, és a projekt publikálva lett a GitHub-on.
+
+
+## 3. Backend Adatmodellek Létrehozása
+**Dátum:** 2025. [aktuális dátum]
+**Használt eszköz:** GitHub Copilot Chat (@workspace)
+**Cél:** A User és Transaction entitások létrehozása C# osztályként, adatbázis annotációkkal.
+
+**Használt Prompt:**
+> @workspace We are moving on to the Backend development. I need to define the data models representing the database structure.
+> Please perform the following actions inside the 'FinTrack.API' project:
+> 1. Create a new folder named 'Models'.
+> 2. Create 'User.cs' with Id, Username, PasswordHash.
+> 3. Create 'Transaction.cs' with Id, UserId, Amount, Date, Description, Category, Type.
+> Use standard System.ComponentModel.DataAnnotations.
+
+**Eredmény:** Létrejött a Models mappa a két C# osztállyal, amelyek tartalmazzák a szükséges tulajdonságokat és validációkat.
+
+
+## 4. Adatbázis Konfiguráció (SQLite)
+**Dátum:** 2025. [aktuális dátum]
+**Használt eszköz:** GitHub Copilot Chat
+**Cél:** Az SQLite adatbázis beállítása a perzisztens adattároláshoz, mivel nincs telepített SQL Server.
+
+**Használt Prompt:**
+> @workspace Change of plan: I want to use a persistent database instead of In-Memory. Since I don't have SQL Server installed, let's use SQLite.
+> 1. Install 'Microsoft.EntityFrameworkCore.Sqlite' and 'Microsoft.EntityFrameworkCore.Tools'.
+> 2. Create 'AppDbContext.cs' with Users and Transactions DbSets.
+> 3. Update 'appsettings.json' with connection string "Data Source=FinTrack.db".
+
+**Eredmény:** A szükséges csomagok telepítve, Connection String beállítva a lokális fájl alapú adatbázishoz.
+
+
+## 5. Adatbázis Migráció
+**Dátum:** 2025. [aktuális dátum]
+**Használt eszköz:** GitHub Copilot Chat + CLI
+**Cél:** Az SQLite adatbázis fizikai létrehozása a Code-First migráció segítségével.
+
+**Használt Prompt:**
+> (Az előző prompt folytatása volt, ahol a terminál parancsokat kérte)
+> ... Tell me what terminal command I need to run to create the database file (migrations).
+
+**Eredmény:** A `dotnet ef` parancsok sikeresen létrehozták a migrációs fájlokat, majd a `FinTrack.db` adatbázis fájlt.
+
+
+## 6. AuthController és Takarítás
+**Dátum:** 2025. [aktuális dátum]
+**Használt eszköz:** GitHub Copilot Chat
+**Cél:** A felesleges minta kód eltávolítása, a Controllers szolgáltatás beüzemelése, és a Regisztráció/Belépés végpontok lefejlesztése jelszó hash-eléssel.
+
+**Használt Prompt:**
+> @workspace We are ready to build the API endpoints.
+> 1. Install 'BCrypt.Net-Next'.
+> 2. Clean 'Program.cs' (remove WeatherForecast), add AddControllers() and MapControllers().
+> 3. Create 'UserDto.cs'.
+> 4. Create 'AuthController.cs' with 'register' (hash password) and 'login' (verify hash) endpoints.
+
+**Eredmény:** A Program.cs letisztult, és létrejött az AuthController, ami képes regisztrálni és beléptetni felhasználókat BCrypt titkosítással.
+
+## 7. Backend Tesztelése (Swagger)
+**Dátum:** 2025. [aktuális dátum]
+**Módszer:** A beépített Swagger UI használata.
+**Tesztelt esetek:**
+1. Új felhasználó regisztrációja (Sikeres, 200 OK).
+2. Regisztrált felhasználó belépése (Sikeres, token visszaadva).
+**Eredmény:** A backend Auth rendszere működik, az adatbázis kapcsolat él.
+
+
+## 8. Tranzakció Kezelés (CRUD) Megvalósítása
+**Dátum:** 2025. [aktuális dátum]
+**Használt eszköz:** GitHub Copilot Chat
+**Cél:** A pénzügyi tranzakciók létrehozását, lekérdezését, módosítását és törlését végző végpontok (API endpoints) létrehozása.
+
+**Használt Prompt:**
+> @workspace We need to implement the Transaction management features now.
+> 1. Create 'TransactionDto.cs'.
+> 2. Create 'TransactionsController.cs' with AppDbContext injection.
+> 3. Implement endpoints: GET (by userId), POST (create), PUT (update), DELETE (delete).
+> 4. Add error handling (NotFound).
+
+**Eredmény:** Létrejött a TransactionsController teljes CRUD funkcionalitással.
+
+
+## 9. CORS Engedélyezése
+**Dátum:** 2025. [aktuális dátum]
+**Használt eszköz:** GitHub Copilot Chat
+**Cél:** A böngésző biztonsági korlátozásának (CORS) feloldása, hogy a Frontend képes legyen adatokat küldeni a Backendnek.
+
+**Használt Prompt:**
+> @workspace Before we start the Frontend, I need to enable CORS to allow my HTML app to communicate with this API.
+> 1. Add CORS policy (AllowAnyOrigin, AllowAnyMethod, AllowAnyHeader).
+> 2. Use app.UseCors() before authorization.
+
+**Eredmény:** A CORS policy bekerült a Program.cs-be, így a böngésző engedni fogja a kéréseket.
+
+
+## 10. Backend Mentése (Checkpoint)
+**Dátum:** 2025. [aktuális dátum]
+**Használt eszköz:** GitHub Copilot Chat
+**Cél:** A működő és letesztelt Backend kódjának rögzítése a verziókezelőben a Frontend fejlesztés megkezdése előtt.
+
+**Használt Prompt:**
+> @workspace I want to save my current progress to GitHub before starting the Frontend.
+> 1. Add all modified files.
+> 2. Commit with message "Backend complete: Auth and Transaction APIs with SQLite & CORS enabled".
+> 3. Push to remote.
+
+**Eredmény:** A backend stabil állapota feltöltve GitHub-ra.
