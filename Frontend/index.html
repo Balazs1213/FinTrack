@@ -124,6 +124,31 @@
             <!-- Transactions Table -->
             <div class="transactions-section">
                 <h2>Transaction History</h2>
+                
+                <!-- Filter Section -->
+                <div class="filter-section">
+                    <div class="filter-group">
+                        <label for="filter-start-date">Start Date</label>
+                        <input type="date" id="filter-start-date">
+                    </div>
+                    <div class="filter-group">
+                        <label for="filter-end-date">End Date</label>
+                        <input type="date" id="filter-end-date">
+                    </div>
+                    <div class="filter-group">
+                        <label for="filter-type">Type</label>
+                        <select id="filter-type">
+                            <option value="">All</option>
+                            <option value="Income">Income</option>
+                            <option value="Expense">Expense</option>
+                        </select>
+                    </div>
+                    <div class="filter-buttons">
+                        <button id="filter-btn" class="btn btn-filter">Filter</button>
+                        <button id="reset-btn" class="btn btn-reset">Reset</button>
+                    </div>
+                </div>
+
                 <div class="table-container">
                     <table id="transactions-table">
                         <thead>

@@ -13,8 +13,11 @@ const logoutBtn = document.getElementById('logout-btn');
 const transactionForm = document.getElementById('transaction-form');
 const transactionsBody = document.getElementById('transactions-body');
 const usernameDisplay = document.getElementById('username-display');
+const filterBtn = document.getElementById('filter-btn');
+const resetBtn = document.getElementById('reset-btn');
 
 let expenseChart = null;
+let allTransactions = []; // Store all transactions globally
 
 // Toggle between login and register forms
 showRegisterLink.addEventListener('click', (e) => {
@@ -109,6 +112,76 @@ registerForm.addEventListener('submit', async (e) => {
     }
 });
 
+// Filter transactions
+function filterTransactions() {
+    const startDate = document.getElementById('filter-start-date').value;
+    const endDate = document.getElementById('filter-end-date').value;
+    const type = document.getElementById('filter-type').value;
+
+    let filtered = [...allTransactions];
+
+    // Validate date range if both dates are provided
+    if (startDate && endDate) {
+        const start = new Date(startDate);
+        const end = new Date(endDate);
+        
+        if (start > end) {
+            alert('Error: The start date cannot be greater than the end date!');
+            document.getElementById('filter-end-date').value = '';
+            return; // Stop execution
+        }
+    }
+
+    // Filter by start date (inclusive, date only)
+    if (startDate) {
+        const filterStartDate = new Date(startDate);
+        filterStartDate.setHours(0, 0, 0, 0);
+        
+        filtered = filtered.filter(t => {
+            const transactionDate = new Date(t.date);
+            transactionDate.setHours(0, 0, 0, 0);
+            return transactionDate >= filterStartDate;
+        });
+    }
+
+    // Filter by end date (inclusive, date only)
+    if (endDate) {
+        const filterEndDate = new Date(endDate);
+        filterEndDate.setHours(23, 59, 59, 999);
+        
+        filtered = filtered.filter(t => {
+            const transactionDate = new Date(t.date);
+            return new Date(transactionDate) <= filterEndDate;
+        });
+    }
+
+    // Filter by type
+    if (type) {
+        filtered = filtered.filter(t => t.type === type);
+    }
+
+    // Update UI with filtered data
+    renderTransactions(filtered);
+    updateSummary(filtered);
+    renderChart(filtered);
+}
+
+// Reset filters
+function resetFilters() {
+    document.getElementById('filter-start-date').value = '';
+    document.getElementById('filter-end-date').value = '';
+    document.getElementById('filter-type').value = '';
+    
+    // Show all transactions
+    renderTransactions(allTransactions);
+    updateSummary(allTransactions);
+    renderChart(allTransactions);
+}
+
+// Add event listeners for filter buttons
+filterBtn.addEventListener('click', filterTransactions);
+resetBtn.addEventListener('click', resetFilters);
+
 // Load transactions
 async function loadTransactions() {
     const userId = localStorage.getItem('userId');
@@ -126,10 +199,10 @@ async function loadTransactions() {
         });
 
         if (response.ok) {
-            const transactions = await response.json();
-            renderTransactions(transactions);
-            updateSummary(transactions);
-            renderChart(transactions);
+            allTransactions = await response.json();
+            renderTransactions(allTransactions);
+            updateSummary(allTransactions);
+            renderChart(allTransactions);
         } else {
             console.error('Failed to load transactions');
         }
@@ -143,11 +216,11 @@ function renderTransactions(transactions) {
     transactionsBody.innerHTML = '';
 
     if (transactions.length === 0) {
-        transactionsBody.innerHTML = '<tr><td colspan="6" style="text-align: center;">No transactions yet</td></tr>';
+        transactionsBody.innerHTML = '<tr><td colspan="6" style="text-align: center;">No transactions found</td></tr>';
         return;
     }
 
-    transactions.forEach(transaction => {
+    for (const transaction of transactions) {
         const row = document.createElement('tr');
         const date = new Date(transaction.date).toLocaleDateString();
         const typeClass = transaction.type === 'Income' ? 'type-income' : 'type-expense';
@@ -164,7 +237,7 @@ function renderTransactions(transactions) {
             </td>
         `;
         transactionsBody.appendChild(row);
-    });
+    }
 }
 
 // Update summary cards
@@ -172,13 +245,13 @@ function updateSummary(transactions) {
     let totalIncome = 0;
     let totalExpense = 0;
 
-    transactions.forEach(transaction => {
+    for (const transaction of transactions) {
         if (transaction.type === 'Income') {
             totalIncome += transaction.amount;
         } else {
             totalExpense += transaction.amount;
         }
-    });
+    }
 
     const balance = totalIncome - totalExpense;
 
@@ -192,13 +265,13 @@ function renderChart(transactions) {
     let totalIncome = 0;
     let totalExpense = 0;
 
-    transactions.forEach(transaction => {
+    for (const transaction of transactions) {
         if (transaction.type === 'Income') {
             totalIncome += transaction.amount;
         } else {
             totalExpense += transaction.amount;
         }
-    });
+    }
 
     const ctx = document.getElementById('expenseChart').getContext('2d');
 
@@ -244,8 +317,8 @@ transactionForm.addEventListener('submit', async (e) => {
     const token = localStorage.getItem('token');
 
     const transactionData = {
-        userId: parseInt(userId),
-        amount: parseFloat(document.getElementById('amount').value),
+        userId: Number.parseInt(userId, 10),
+        amount: Number.parseFloat(document.getElementById('amount').value),
         date: document.getElementById('date').value,
         category: document.getElementById('category').value,
         type: document.getElementById('type').value,
@@ -265,6 +338,8 @@ transactionForm.addEventListener('submit', async (e) => {
         if (response.ok) {
             alert('Transaction added successfully!');
             transactionForm.reset();
+            // Set today's date as default again
+            document.getElementById('date').valueAsDate = new Date();
             await loadTransactions();
         } else {
             alert('Failed to add transaction. Please try again.');
@@ -317,6 +392,9 @@ logoutBtn.addEventListener('click', () => {
         expenseChart = null;
     }
 
+    // Clear global transactions
+    allTransactions = [];
+
     // Hide dashboard and show auth section
     dashboard.style.display = 'none';
     authSection.style.display = 'flex';
@@ -325,7 +403,7 @@ logoutBtn.addEventListener('click', () => {
 });
 
 // Check if user is already logged in
-window.addEventListener('DOMContentLoaded', async () => {
+globalThis.addEventListener('DOMContentLoaded', async () => {
     const token = localStorage.getItem('token');
     const userId = localStorage.getItem('userId');
     const username = localStorage.getItem('username');

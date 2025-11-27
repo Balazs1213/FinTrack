@@ -183,4 +183,85 @@
 **Eredmény:** A felhasználó látja a saját tranzakcióit listázva és diagramon, tud újat felvenni és törölni. A rendszer automatikusan frissíti a nézetet.
 
 
+## 14. Verziókiadás (v1.0)
+**Dátum:** 2025. [aktuális dátum]
+**Használt eszköz:** GitHub Copilot Chat
+**Cél:** A kész alkalmazás (Frontend + Backend) végső állapotának rögzítése és publikálása a verziókezelőben.
 
+**Használt Prompt:**
+> @workspace The application is fully functional. I want to push the final Frontend changes to GitHub.
+> 1. Add all files.
+> 2. Commit with message "Frontend completed... First working version (v1.0)."
+> 3. Push to origin.
+
+**Eredmény:** A FinTrack v1.0 forráskódja elérhető a GitHub repository-ban.
+
+
+## 15. Funkcióbővítés: Szűrés
+**Dátum:** 2025. [aktuális dátum]
+**Használt eszköz:** GitHub Copilot Chat
+**Cél:** Lehetőség biztosítása a tranzakciók szűrésére dátum intervallum és típus (Bevétel/Kiadás) szerint a Frontend oldalon.
+
+**Használt Prompt:**
+> @workspace I want to add filtering capabilities to the Transaction List on the Dashboard.
+> 1. Update index.html (Filter inputs: Start Date, End Date, Type).
+> 2. Update app.js (Client-side filtering logic, filterTransactions function).
+> 3. Update style.css (Filter bar styling).
+
+**Eredmény:** A felhasználó dinamikusan szűrheti a megjelenített tranzakciókat anélkül, hogy új lekérdezést küldene a szervernek.
+
+
+## 16. Hibajavítás: Dátum Szűrés
+**Dátum:** 2025. [aktuális dátum]
+**Használt eszköz:** GitHub Copilot Chat
+**Cél:** A dátumszűrő javítása, hogy a kiválasztott kezdő- és végdátum napján történt tranzakciók is megjelenjenek (inkluzív szűrés).
+
+**Használt Prompt:**
+> @workspace There is a bug in the client-side filtering logic. When I select a "Start Date", transactions that happened exactly ON that date are currently hidden.
+> Please fix the `filterTransactions` function in 'app.js' to ensure date comparison is INCLUSIVE and ignores the time component.
+
+**Eredmény:** A szűrő most már helyesen jeleníti meg az adott napon történt tranzakciókat is, figyelmen kívül hagyva az időpontot.
+
+
+## 17. Validáció: Dátum Intervallum
+**Dátum:** 2025. [aktuális dátum]
+**Használt eszköz:** GitHub Copilot Chat
+**Cél:** Felhasználói hiba kezelése a szűrésnél. Megakadályozzuk, hogy a kezdő dátum későbbi legyen, mint a végdátum.
+
+**Használt Prompt:**
+> @workspace I need to add validation to the date filtering logic in 'app.js'.
+> 1. Check if Start Date > End Date.
+> 2. If true, show alert "Error: The start date cannot be grater than the end date!", clear input, and return.
+
+**Eredmény:** A rendszer hibaüzenetet dob és megállítja a szűrést logikátlan dátumbeállítás esetén.
+
+
+
+## 18. Kódminőség és Refaktorálás (SonarQube)
+**Dátum:** 2025. [aktuális dátum]
+**Használt eszköz:** GitHub Copilot Chat + SonarQube
+**Cél:** A statikus kódelemző által talált hibák (Code Smells) javítása a fenntarthatóság és akadálymentesség érdekében.
+
+**Használt Prompt:**
+> @workspace I need to refactor the Frontend code based on SonarQube analysis results.
+> 1. Refactor 'style.css' for WCAG 2.2 Contrast Compliance (darker colors).
+> 2. Refactor 'app.js': replace forEach with for...of loops.
+> 3. Use Number.parseFloat() instead of global parseFloat.
+> 4. Use globalThis instead of window.
+
+**Eredmény:** A kód megfelel a modern JavaScript szabványoknak (ES6+), és a felület kontrasztosabb, jobban olvasható lett.
+
+
+
+## 19. Refaktorálás és Véglegesítés
+**Dátum:** 2025. [aktuális dátum]
+**Használt eszköz:** GitHub Copilot Chat + SonarQube
+**Cél:** A kód megtisztítása a statikus elemző visszajelzései alapján (kontraszt javítás, modern ciklusok), valamint a változtatások végleges rögzítése a verziókezelőben.
+
+**Használt Prompt:**
+> @workspace The application refactoring and filtering features are complete. I want to push these changes to GitHub.
+> 1. Add all files.
+> 2. Commit with message "Refactoring: SonarQube fixes...".
+> 3. Push to remote.
+
+**Eredmény:** A FinTrack projekt végleges, tiszta kódja elérhető a GitHub-on.
