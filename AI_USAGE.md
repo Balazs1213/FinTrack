@@ -265,3 +265,41 @@
 > 3. Push to remote.
 
 **Eredmény:** A FinTrack projekt végleges, tiszta kódja elérhető a GitHub-on.
+
+
+## 20. Backend Refaktorálás (SonarQube)
+**Dátum:** 2025. [aktuális dátum]
+**Használt eszköz:** GitHub Copilot Chat + SonarQube Cloud
+**Cél:** A backend indításának aszinkronná tétele (S6966 hiba javítása) a megbízhatóság növelése érdekében.
+
+**Használt Prompt:**
+> @workspace I need to fix a SonarQube issue (S6966) in 'Backend/FinTrack.API/Program.cs'.
+> Change `app.Run();` to `await app.RunAsync();`.
+
+**Eredmény:** Az alkalmazás most már aszinkron módon fut (`RunAsync`), ami megfelel a modern .NET szabványoknak.
+
+
+## 21. Adatmodell Szigorítás (SonarQube)
+**Dátum:** 2025. [aktuális dátum]
+**Használt eszköz:** GitHub Copilot Chat + SonarQube Cloud
+**Cél:** Az "under-posting" sérülékenység javítása. Kötelezővé tesszük (`required`) a kulcsfontosságú mezőket a DTO-ban, hogy a szerver ne fogadjon el hiányos adatokat alapértelmezett értékekkel.
+
+**Használt Prompt:**
+> @workspace I need to fix a SonarQube reliability issue in 'Backend/FinTrack.API/DTOs/TransactionDto.cs'.
+> Add the `required` modifier to `UserId`, `Amount`, and `Date`.
+
+**Eredmény:** A tranzakciók felvitele biztonságosabb, a hiányos adatokra a szerver 400-as hibával válaszol.
+
+
+## 21. Adatmodell Szigorítás (SonarQube)
+**Dátum:** 2025. [aktuális dátum]
+**Használt eszköz:** GitHub Copilot Chat + SonarQube Cloud
+**Cél:** Az "under-posting" sérülékenység javítása. Kötelezővé tesszük (`required`) a kulcsfontosságú mezőket a DTO-ban, hogy a szerver ne fogadjon el hiányos adatokat alapértelmezett értékekkel.
+
+**Használt Prompt:**
+> @workspace I need to fix a SonarQube reliability issue in 'Backend/FinTrack.API/DTOs/TransactionDto.cs'.
+> Add the `required` modifier to `UserId`, `Amount`, and `Date`.
+
+**Eredmény:** A tranzakciók felvitele biztonságosabb, a hiányos adatokra a szerver 400-as hibával válaszol.
+
+
