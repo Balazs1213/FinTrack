@@ -412,4 +412,18 @@
 **Eredmény:** A fejléc tisztább lett a fogaskerék ikonnal, és a diagram feliratai automatikusan feketére vagy fehérre váltanak a témának megfelelően.
 
 
+## 29. Biztonság: Valódi JWT Implementáció (30 napos lejárattal)
+**Dátum:** 2025. [aktuális dátum]
+**Használt eszköz:** GitHub Copilot Chat
+**Cél:** A tesztjellegű "fake" token leváltása ipari szabványú JSON Web Token-re (JWT). Kiemelt szempont volt a 30 napos érvényességi idő beállítása, hogy a vizsgaidőszakban és a javítás során is garantáltan működjön a belépés.
+
+**Használt Prompt:**
+> @workspace I want to replace the "fake-jwt-token" with a REAL JWT implementation using `Microsoft.AspNetCore.Authentication.JwtBearer`.
+> 1. Install JwtBearer package.
+> 2. Config appsettings (Key, Issuer, Audience).
+> 3. Update Program.cs (AddAuthentication, AddJwtBearer validation).
+> 4. Update AuthController to generate signed tokens with Claims and set expiration to **30 days**.
+
+**Eredmény:** A rendszer mostantól kriptográfiailag hitelesített tokenekkel kommunikál, amelyek egy hónapig érvényesek.
+
 
