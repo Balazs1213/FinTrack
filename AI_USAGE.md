@@ -303,3 +303,27 @@
 **Eredmény:** A tranzakciók felvitele biztonságosabb, a hiányos adatokra a szerver 400-as hibával válaszol.
 
 
+## 22. Biztonsági Szigorítás: SRI (SonarQube)
+**Dátum:** 2025. [aktuális dátum]
+**Használt eszköz:** GitHub Copilot Chat + SonarQube
+**Cél:** A külső könyvtárak (Chart.js) hitelességének ellenőrzése (S5725). Bevezettük a Subresource Integrity (SRI) használatát.
+
+**Használt Prompt:**
+> @workspace I need to fix a SonarQube Security Hotspot (S5725) in 'Frontend/index.html'.
+> Replace the generic Chart.js script tag with a specific version (4.4.1) that includes 'integrity' and 'crossorigin' attributes.
+
+**Eredmény:** A külső JavaScript könyvtár verziója rögzítve lett, és a böngésző kriptográfiai hash segítségével ellenőrzi, hogy a fájl nem módosult-e rosszindulatúan.
+
+
+## 23. CSS Refaktorálás (CSS Variables)
+**Dátum:** 2025. [aktuális dátum]
+**Használt eszköz:** GitHub Copilot Chat
+**Cél:** A stíluslap (style.css) modernizálása és tisztítása CSS változók (:root) bevezetésével. A kód ismétlődéseinek csökkentése és a karbantarthatóság növelése.
+
+**Használt Prompt:**
+> @workspace I want to refactor 'style.css' to make it cleaner, more maintainable, and strictly DRY.
+> 1. Introduce CSS Variables (:root) for colors and spacing.
+> 2. Replace hardcoded values with var(...).
+> 3. Consolidate styles.
+
+**Eredmény:** A CSS fájl mostantól központosított változókat használ, így a téma módosítása egyszerűbb, a kód pedig átláthatóbb.
