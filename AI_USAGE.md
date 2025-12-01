@@ -427,3 +427,18 @@
 **Eredmény:** A rendszer mostantól kriptográfiailag hitelesített tokenekkel kommunikál, amelyek egy hónapig érvényesek.
 
 
+## 30. Biztonság: Titkos Kulcsok Védelme (SonarQube)
+**Dátum:** 2025. [aktuális dátum]
+**Használt eszköz:** GitHub Copilot Chat + SonarQube Cloud
+**Cél:** A JWT aláíró kulcs eltávolítása a forráskódból és a konfigurációs fájlokból (Hardcoded Secrets). Átállás Környezeti Változók (Environment Variables) használatára a SonarQube kritikus hibajelzése alapján.
+
+**Használt Prompt:**
+> @workspace I need to fix a critical SonarQube security issue regarding "JWT secret keys should not be disclosed".
+> 1. Update AuthController.cs to use Environment.GetEnvironmentVariable("FINTRACK_JWT_KEY").
+> 2. Update Program.cs to use the same environment variable.
+> 3. Clean appsettings.json.
+> 4. Configure .vscode/launch.json for local debugging.
+
+**Eredmény:** A titkos kulcs többé nincs a verziókezelőben. A futtató környezet (vagy a VS Code debugger) injektálja azt, így a GitHub-ra feltöltött kód biztonságos.
+
+

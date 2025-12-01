@@ -1,4 +1,4 @@
-const API_BASE_URL = 'http://localhost:5062/api';
+const API_BASE_URL = 'https://localhost:7264/api';
 
 // Get DOM elements - with null-safe checks
 const authSection = document.getElementById('auth-section');
