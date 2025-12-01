@@ -72,6 +72,41 @@
     --transition-base: all 0.3s;
 }
 
+/* ==================== Dark Mode Theme ==================== */
+body.dark-mode {
+    --white: #121212;
+    --text-dark: #e0e0e0;
+    --text-medium: #b0b0b0;
+    --text-light: #888888;
+    --text-super-light: #333333;
+    
+    --border-color: #333333;
+    --background-light: #1e1e1e;
+    --background-hover: #2a2a2a;
+    
+    --gradient-primary: linear-gradient(135deg, #1a1a2e 0%, #16213e 100%);
+    
+    --shadow-sm: 0 2px 8px rgba(0, 0, 0, 0.5);
+    --shadow-md: 0 4px 12px rgba(0, 0, 0, 0.5);
+    --shadow-lg: 0 10px 20px rgba(0, 0, 0, 0.6);
+    --shadow-xl: 0 20px 60px rgba(0, 0, 0, 0.8);
+}
+
+/* Dark Mode: fix date picker icon visibility (WebKit browsers) */
+body.dark-mode input[type="date"]::-webkit-calendar-picker-indicator {
+    filter: invert(1);
+}
+
+/* Dark Mode: readable table text (keeps colored amounts and badges intact) */
+body.dark-mode tbody tr {
+    color: var(--text-dark);
+}
+
+/* Ensure table headers stay high-contrast in dark mode */
+body.dark-mode thead th {
+    color: #ffffff;
+}
+
 /* ==================== Global Reset ==================== */
 * {
     margin: 0;
@@ -87,6 +122,7 @@ body {
     justify-content: center;
     align-items: center;
     padding: var(--spacing-lg);
+    transition: var(--transition-base);
 }
 
 .container {
@@ -157,6 +193,8 @@ body {
     font-size: var(--font-size-base);
     transition: border-color 0.3s;
     font-family: inherit;
+    background: var(--white);
+    color: var(--text-dark);
 }
 
 .form-group input:focus,
@@ -225,7 +263,7 @@ body {
 
 .btn-secondary {
     background: var(--error-red);
-    color: var(--white);
+    color: #ffffff;
 }
 
 .btn-secondary:hover {
@@ -234,7 +272,7 @@ body {
 
 .btn-add {
     background: var(--success-green-dark);
-    color: var(--white);
+    color: #ffffff;
 }
 
 .btn-add:hover {
@@ -245,7 +283,7 @@ body {
 
 .btn-filter {
     background: var(--info-blue);
-    color: var(--white);
+    color: #ffffff;
 }
 
 .btn-filter:hover {
@@ -254,7 +292,7 @@ body {
 
 .btn-reset {
     background: var(--warning-orange);
-    color: var(--white);
+    color: #ffffff;
 }
 
 .btn-reset:hover {
@@ -263,7 +301,7 @@ body {
 
 .btn-delete {
     background: var(--error-red);
-    color: var(--white);
+    color: #ffffff;
     border: none;
     padding: var(--spacing-xs) 16px;
     border-radius: var(--radius-sm);
@@ -276,6 +314,10 @@ body {
 .btn-delete:hover {
     background: var(--error-red-dark);
     transform: scale(1.05);
+}
+
+.btn-logout {
+    margin-top: var(--spacing-xl);
 }
 
 /* ==================== Text Links ==================== */
@@ -341,7 +383,7 @@ body {
 .card h3 {
     font-size: var(--font-size-base);
     margin-bottom: var(--spacing-sm);
-    color: var(--text-super-light);
+    color: #f5f5f5;
 }
 
 .card .amount {
@@ -351,17 +393,17 @@ body {
 
 .card-income {
     background: var(--gradient-success);
-    color: var(--white);
+    color: #ffffff;
 }
 
 .card-expense {
     background: var(--gradient-error);
-    color: var(--white);
+    color: #ffffff;
 }
 
 .card-balance {
     background: var(--gradient-primary-dark);
-    color: var(--white);
+    color: #ffffff;
 }
 
 /* ==================== Dashboard Content ==================== */
@@ -451,7 +493,7 @@ table {
 
 thead {
     background: var(--gradient-primary-dark);
-    color: var(--white);
+    color: #ffffff;
 }
 
 th, td {
@@ -505,6 +547,135 @@ tbody tr:last-child {
     color: var(--error-red-dark);
 }
 
+/* ==================== Settings Modal ==================== */
+.modal {
+    display: none;
+    position: fixed;
+    z-index: 1000;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.6);
+    backdrop-filter: blur(4px);
+}
+
+.modal-content {
+    background-color: var(--white);
+    margin: 10% auto;
+    padding: var(--spacing-xxl);
+    border-radius: var(--radius-xl);
+    width: 90%;
+    max-width: 500px;
+    box-shadow: var(--shadow-xl);
+    position: relative;
+    animation: slideDown 0.3s ease-out;
+}
+
+@keyframes slideDown {
+    from {
+        opacity: 0;
+        transform: translateY(-50px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.close-btn {
+    color: var(--text-medium);
+    float: right;
+    font-size: 28px;
+    font-weight: bold;
+    cursor: pointer;
+    transition: var(--transition-base);
+}
+
+.close-btn:hover,
+.close-btn:focus {
+    color: var(--error-red);
+}
+
+.modal-content h2 {
+    color: var(--text-dark);
+    margin-bottom: var(--spacing-xl);
+    font-size: var(--font-size-xl);
+}
+
+.settings-section {
+    margin-bottom: var(--spacing-lg);
+}
+
+.setting-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: var(--spacing-lg);
+    background: var(--background-light);
+    border-radius: var(--radius-md);
+    margin-bottom: var(--spacing-md);
+}
+
+/* ==================== Toggle Switch (Refactored Structure) ==================== */
+.switch {
+    position: relative;
+    display: inline-flex;
+    align-items: center;
+    cursor: pointer;
+    user-select: none;
+}
+
+.switch input {
+    position: absolute;
+    opacity: 0;
+    width: 0;
+    height: 0;
+}
+
+.slider {
+    position: relative;
+    display: inline-block;
+    width: 60px;
+    height: 34px;
+    background-color: #ccc;
+    border-radius: 34px;
+    transition: 0.4s;
+    cursor: pointer;
+}
+
+.slider:before {
+    position: absolute;
+    content: "";
+    height: 26px;
+    width: 26px;
+    left: 4px;
+    bottom: 4px;
+    background-color: white;
+    transition: 0.4s;
+    border-radius: 50%;
+}
+
+.switch input:checked ~ .slider {
+    background-color: var(--primary-purple);
+}
+
+.switch input:checked ~ .slider:before {
+    transform: translateX(26px);
+}
+
+.switch input:focus ~ .slider {
+    box-shadow: 0 0 4px var(--primary-purple);
+}
+
+/* Label text styling */
+.switch > span:not(.slider) {
+    margin-left: 10px;
+    font-size: var(--font-size-base);
+    font-weight: 600;
+    color: var(--text-dark);
+}
+
 /* ==================== Responsive Design ==================== */
 @media (max-width: 768px) {
     .auth-card {
@@ -554,5 +725,11 @@ tbody tr:last-child {
 
     th, td {
         padding: var(--spacing-sm);
+    }
+
+    .modal-content {
+        width: 95%;
+        margin: 20% auto;
+        padding: var(--spacing-lg);
     }
 }

@@ -1,6 +1,6 @@
 const API_BASE_URL = 'http://localhost:5062/api';
 
-// Get DOM elements
+// Get DOM elements - with null-safe checks
 const authSection = document.getElementById('auth-section');
 const dashboard = document.getElementById('dashboard');
 const loginForm = document.getElementById('loginForm');
@@ -9,6 +9,10 @@ const loginFormContainer = document.getElementById('login-form');
 const registerFormContainer = document.getElementById('register-form');
 const showRegisterLink = document.getElementById('show-register');
 const showLoginLink = document.getElementById('show-login');
+const settingsBtn = document.getElementById('settings-btn');
+const settingsModal = document.getElementById('settings-modal');
+const closeModal = document.getElementById('close-modal');
+const darkModeToggle = document.getElementById('darkModeToggle');
 const logoutBtn = document.getElementById('logout-btn');
 const transactionForm = document.getElementById('transaction-form');
 const transactionsBody = document.getElementById('transactions-body');
@@ -20,107 +24,159 @@ let expenseChart = null;
 let allTransactions = []; // Store all transactions globally
 
 // Toggle between login and register forms
-showRegisterLink.addEventListener('click', (e) => {
-    e.preventDefault();
-    loginFormContainer.style.display = 'none';
-    registerFormContainer.style.display = 'block';
+if (showRegisterLink) {
+    showRegisterLink.addEventListener('click', (e) => {
+        e.preventDefault();
+        if (loginFormContainer) loginFormContainer.style.display = 'none';
+        if (registerFormContainer) registerFormContainer.style.display = 'block';
+    });
+}
+
+if (showLoginLink) {
+    showLoginLink.addEventListener('click', (e) => {
+        e.preventDefault();
+        if (registerFormContainer) registerFormContainer.style.display = 'none';
+        if (loginFormContainer) loginFormContainer.style.display = 'block';
+    });
+}
+
+// Settings Modal Controls - with null checks
+if (settingsBtn && settingsModal) {
+    settingsBtn.addEventListener('click', () => {
+        settingsModal.style.display = 'block';
+    });
+}
+
+if (closeModal && settingsModal) {
+    closeModal.addEventListener('click', () => {
+        settingsModal.style.display = 'none';
+    });
+}
+
+// Close modal when clicking outside of it
+globalThis.addEventListener('click', (event) => {
+    if (settingsModal && event.target === settingsModal) {
+        settingsModal.style.display = 'none';
+    }
 });
 
-showLoginLink.addEventListener('click', (e) => {
-    e.preventDefault();
-    registerFormContainer.style.display = 'none';
-    loginFormContainer.style.display = 'block';
-});
+// Dark Mode Toggle - with null check
+if (darkModeToggle) {
+    darkModeToggle.addEventListener('change', () => {
+        if (darkModeToggle.checked) {
+            document.body.classList.add('dark-mode');
+            localStorage.setItem('theme', 'dark');
+        } else {
+            document.body.classList.remove('dark-mode');
+            localStorage.setItem('theme', 'light');
+        }
+    });
+}
+
+// Apply saved theme on page load
+function applySavedTheme() {
+    const savedTheme = localStorage.getItem('theme');
+    if (savedTheme === 'dark') {
+        document.body.classList.add('dark-mode');
+        if (darkModeToggle) {
+            darkModeToggle.checked = true;
+        }
+    }
+}
 
 // Login function
-loginForm.addEventListener('submit', async (e) => {
-    e.preventDefault();
-    
-    const username = document.getElementById('login-username').value;
-    const password = document.getElementById('login-password').value;
-    const rememberMe = document.getElementById('rememberMe').checked;
+if (loginForm) {
+    loginForm.addEventListener('submit', async (e) => {
+        e.preventDefault();
+        
+        const username = document.getElementById('login-username').value;
+        const password = document.getElementById('login-password').value;
+        const rememberMe = document.getElementById('rememberMe')?.checked || false;
 
-    try {
-        const response = await fetch(`${API_BASE_URL}/Auth/login`, {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json'
-            },
-            body: JSON.stringify({ username, password })
-        });
+        try {
+            const response = await fetch(`${API_BASE_URL}/Auth/login`, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({ username, password })
+            });
 
-        const data = await response.json();
+            const data = await response.json();
 
-        if (response.ok) {
-            // Choose storage based on Remember Me checkbox
-            const storage = rememberMe ? localStorage : sessionStorage;
-            
-            // Save token and userId to chosen storage
-            storage.setItem('token', data.token);
-            storage.setItem('userId', data.user.id);
-            storage.setItem('username', data.user.username);
+            if (response.ok) {
+                // Choose storage based on Remember Me checkbox
+                const storage = rememberMe ? localStorage : sessionStorage;
+                
+                // Save token and userId to chosen storage
+                storage.setItem('token', data.token);
+                storage.setItem('userId', data.user.id);
+                storage.setItem('username', data.user.username);
 
-            // Show success message
-            alert('Login Successful!');
+                // Show success message
+                alert('Login Successful!');
 
-            // Hide auth section and show dashboard
-            authSection.style.display = 'none';
-            dashboard.style.display = 'block';
-            usernameDisplay.textContent = data.user.username;
+                // Hide auth section and show dashboard
+                if (authSection) authSection.style.display = 'none';
+                if (dashboard) dashboard.style.display = 'block';
+                if (usernameDisplay) usernameDisplay.textContent = data.user.username;
 
-            // Load transactions
-            await loadTransactions();
+                // Load transactions
+                await loadTransactions();
 
-            // Clear form
-            loginForm.reset();
-        } else {
-            alert(data.message || 'Login failed. Please try again.');
+                // Clear form
+                loginForm.reset();
+            } else {
+                alert(data.message || 'Login failed. Please try again.');
+            }
+        } catch (error) {
+            console.error('Error:', error);
+            alert('An error occurred. Please try again later.');
         }
-    } catch (error) {
-        console.error('Error:', error);
-        alert('An error occurred. Please try again later.');
-    }
-});
+    });
+}
 
 // Register function
-registerForm.addEventListener('submit', async (e) => {
-    e.preventDefault();
-    
-    const username = document.getElementById('register-username').value;
-    const password = document.getElementById('register-password').value;
+if (registerForm) {
+    registerForm.addEventListener('submit', async (e) => {
+        e.preventDefault();
+        
+        const username = document.getElementById('register-username').value;
+        const password = document.getElementById('register-password').value;
 
-    try {
-        const response = await fetch(`${API_BASE_URL}/Auth/register`, {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json'
-            },
-            body: JSON.stringify({ username, password })
-        });
+        try {
+            const response = await fetch(`${API_BASE_URL}/Auth/register`, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({ username, password })
+            });
 
-        const data = await response.json();
+            const data = await response.json();
 
-        if (response.ok) {
-            alert('Registration successful! Please login.');
-            // Switch to login form
-            registerFormContainer.style.display = 'none';
-            loginFormContainer.style.display = 'block';
-            // Clear form
-            registerForm.reset();
-        } else {
-            alert(data.message || 'Registration failed. Please try again.');
+            if (response.ok) {
+                alert('Registration successful! Please login.');
+                // Switch to login form
+                if (registerFormContainer) registerFormContainer.style.display = 'none';
+                if (loginFormContainer) loginFormContainer.style.display = 'block';
+                // Clear form
+                registerForm.reset();
+            } else {
+                alert(data.message || 'Registration failed. Please try again.');
+            }
+        } catch (error) {
+            console.error('Error:', error);
+            alert('An error occurred. Please try again later.');
         }
-    } catch (error) {
-        console.error('Error:', error);
-        alert('An error occurred. Please try again later.');
-    }
-});
+    });
+}
 
 // Filter transactions
 function filterTransactions() {
-    const startDate = document.getElementById('filter-start-date').value;
-    const endDate = document.getElementById('filter-end-date').value;
-    const type = document.getElementById('filter-type').value;
+    const startDate = document.getElementById('filter-start-date')?.value || '';
+    const endDate = document.getElementById('filter-end-date')?.value || '';
+    const type = document.getElementById('filter-type')?.value || '';
 
     let filtered = [...allTransactions];
 
@@ -130,8 +186,9 @@ function filterTransactions() {
         const end = new Date(endDate);
         
         if (start > end) {
-            alert('Error: The start date cannot be greater than the end date!');
-            document.getElementById('filter-end-date').value = '';
+            alert('Hiba: A kezdő dátum nem lehet későbbi, mint a végdátum!');
+            const endDateInput = document.getElementById('filter-end-date');
+            if (endDateInput) endDateInput.value = '';
             return; // Stop execution
         }
     }
@@ -172,9 +229,13 @@ function filterTransactions() {
 
 // Reset filters
 function resetFilters() {
-    document.getElementById('filter-start-date').value = '';
-    document.getElementById('filter-end-date').value = '';
-    document.getElementById('filter-type').value = '';
+    const filterStartDate = document.getElementById('filter-start-date');
+    const filterEndDate = document.getElementById('filter-end-date');
+    const filterType = document.getElementById('filter-type');
+    
+    if (filterStartDate) filterStartDate.value = '';
+    if (filterEndDate) filterEndDate.value = '';
+    if (filterType) filterType.value = '';
     
     // Show all transactions
     renderTransactions(allTransactions);
@@ -183,8 +244,13 @@ function resetFilters() {
 }
 
 // Add event listeners for filter buttons
-filterBtn.addEventListener('click', filterTransactions);
-resetBtn.addEventListener('click', resetFilters);
+if (filterBtn) {
+    filterBtn.addEventListener('click', filterTransactions);
+}
+
+if (resetBtn) {
+    resetBtn.addEventListener('click', resetFilters);
+}
 
 // Helper function to get user data from storage
 function getUserFromStorage() {
@@ -233,6 +299,8 @@ async function loadTransactions() {
 
 // Render transactions in table
 function renderTransactions(transactions) {
+    if (!transactionsBody) return;
+    
     transactionsBody.innerHTML = '';
 
     if (transactions.length === 0) {
@@ -275,9 +343,13 @@ function updateSummary(transactions) {
 
     const balance = totalIncome - totalExpense;
 
-    document.getElementById('total-income').textContent = `$${totalIncome.toFixed(2)}`;
-    document.getElementById('total-expense').textContent = `$${totalExpense.toFixed(2)}`;
-    document.getElementById('balance').textContent = `$${balance.toFixed(2)}`;
+    const totalIncomeEl = document.getElementById('total-income');
+    const totalExpenseEl = document.getElementById('total-expense');
+    const balanceEl = document.getElementById('balance');
+    
+    if (totalIncomeEl) totalIncomeEl.textContent = `$${totalIncome.toFixed(2)}`;
+    if (totalExpenseEl) totalExpenseEl.textContent = `$${totalExpense.toFixed(2)}`;
+    if (balanceEl) balanceEl.textContent = `$${balance.toFixed(2)}`;
 }
 
 // Render chart
@@ -293,7 +365,10 @@ function renderChart(transactions) {
         }
     }
 
-    const ctx = document.getElementById('expenseChart').getContext('2d');
+    const canvas = document.getElementById('expenseChart');
+    if (!canvas) return;
+    
+    const ctx = canvas.getContext('2d');
 
     // Destroy previous chart if exists
     if (expenseChart) {
@@ -330,44 +405,47 @@ function renderChart(transactions) {
 }
 
 // Add transaction
-transactionForm.addEventListener('submit', async (e) => {
-    e.preventDefault();
+if (transactionForm) {
+    transactionForm.addEventListener('submit', async (e) => {
+        e.preventDefault();
 
-    const { userId, token } = getUserFromStorage();
+        const { userId, token } = getUserFromStorage();
 
-    const transactionData = {
-        userId: Number.parseInt(userId, 10),
-        amount: Number.parseFloat(document.getElementById('amount').value),
-        date: document.getElementById('date').value,
-        category: document.getElementById('category').value,
-        type: document.getElementById('type').value,
-        description: document.getElementById('description').value || null
-    };
+        const transactionData = {
+            userId: Number.parseInt(userId, 10),
+            amount: Number.parseFloat(document.getElementById('amount').value),
+            date: document.getElementById('date').value,
+            category: document.getElementById('category').value,
+            type: document.getElementById('type').value,
+            description: document.getElementById('description').value || null
+        };
 
-    try {
-        const response = await fetch(`${API_BASE_URL}/Transactions`, {
-            method: 'POST',
-            headers: {
-                'Authorization': `Bearer ${token}`,
-                'Content-Type': 'application/json'
-            },
-            body: JSON.stringify(transactionData)
-        });
+        try {
+            const response = await fetch(`${API_BASE_URL}/Transactions`, {
+                method: 'POST',
+                headers: {
+                    'Authorization': `Bearer ${token}`,
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify(transactionData)
+            });
 
-        if (response.ok) {
-            alert('Transaction added successfully!');
-            transactionForm.reset();
-            // Set today's date as default again
-            document.getElementById('date').valueAsDate = new Date();
-            await loadTransactions();
-        } else {
-            alert('Failed to add transaction. Please try again.');
+            if (response.ok) {
+                alert('Transaction added successfully!');
+                transactionForm.reset();
+                // Set today's date as default again
+                const dateInput = document.getElementById('date');
+                if (dateInput) dateInput.valueAsDate = new Date();
+                await loadTransactions();
+            } else {
+                alert('Failed to add transaction. Please try again.');
+            }
+        } catch (error) {
+            console.error('Error:', error);
+            alert('An error occurred. Please try again later.');
         }
-    } catch (error) {
-        console.error('Error:', error);
-        alert('An error occurred. Please try again later.');
-    }
-});
+    });
+}
 
 // Delete transaction
 async function deleteTransaction(id) {
@@ -398,40 +476,53 @@ async function deleteTransaction(id) {
     }
 }
 
-// Logout function
-logoutBtn.addEventListener('click', () => {
-    // Clear localStorage
-    localStorage.removeItem('token');
-    localStorage.removeItem('userId');
-    localStorage.removeItem('username');
+// Logout function - with null check
+if (logoutBtn) {
+    logoutBtn.addEventListener('click', () => {
+        // Clear both localStorage and sessionStorage to be safe
+        localStorage.removeItem('token');
+        localStorage.removeItem('userId');
+        localStorage.removeItem('username');
+        
+        sessionStorage.removeItem('token');
+        sessionStorage.removeItem('userId');
+        sessionStorage.removeItem('username');
 
-    // Destroy chart
-    if (expenseChart) {
-        expenseChart.destroy();
-        expenseChart = null;
-    }
+        // Destroy chart
+        if (expenseChart) {
+            expenseChart.destroy();
+            expenseChart = null;
+        }
 
-    // Clear global transactions
-    allTransactions = [];
+        // Clear global transactions
+        allTransactions = [];
 
-    // Hide dashboard and show auth section
-    dashboard.style.display = 'none';
-    authSection.style.display = 'flex';
+        // Close settings modal
+        if (settingsModal) settingsModal.style.display = 'none';
 
-    alert('Logged out successfully!');
-});
+        // Hide dashboard and show auth section
+        if (dashboard) dashboard.style.display = 'none';
+        if (authSection) authSection.style.display = 'flex';
 
-// Check if user is already logged in
+        alert('Logged out successfully!');
+    });
+}
+
+// Check if user is already logged in and apply theme
 globalThis.addEventListener('DOMContentLoaded', async () => {
+    // Apply saved theme first
+    applySavedTheme();
+
     const { token, userId, username } = getUserFromStorage();
 
     if (token && userId) {
-        authSection.style.display = 'none';
-        dashboard.style.display = 'block';
-        usernameDisplay.textContent = username;
+        if (authSection) authSection.style.display = 'none';
+        if (dashboard) dashboard.style.display = 'block';
+        if (usernameDisplay) usernameDisplay.textContent = username;
         
         // Set today's date as default
-        document.getElementById('date').valueAsDate = new Date();
+        const dateInput = document.getElementById('date');
+        if (dateInput) dateInput.valueAsDate = new Date();
         
         await loadTransactions();
     }

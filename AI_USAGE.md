@@ -355,3 +355,47 @@
 > 3. Update startup check to look in both storages.
 
 **Eredmény:** A felhasználó mostantól dönthet, hogy biztonsági okokból kilépjen-e a böngésző bezárásakor, vagy kényelmi okokból bent maradjon.
+
+
+## 25. Dark Mode és Beállítások Ablak
+**Dátum:** 2025. [aktuális dátum]
+**Használt eszköz:** GitHub Copilot Chat
+**Cél:** A felhasználói felület modernizálása "Sötét Mód" (Dark Mode) bevezetésével, valamint a fejléc átalakítása egy felugró beállítások ablak segítségével.
+
+**Használt Prompt:**
+> @workspace I want to implement a Dark Mode feature and reorganize the dashboard header.
+> Please update the Frontend files with the following requirements:
+> 1. Update index.html: Replace "Logout" with "Settings" button. Create a Modal with "Close", "Dark Mode Toggle", and "Logout".
+> 2. Update style.css: Implement `body.dark-mode` selector to override CSS variables (invert colors). Style the Modal and Toggle Switch.
+> 3. Update app.js: Add event listeners for the Modal. Implement toggle logic and save preference to localStorage.
+
+**Eredmény:** A felületen elérhető egy Beállítások menü, ahol a felhasználó válthat a világos és sötét téma között. A választást a rendszer megjegyzi.
+
+
+## 26. Dark Mode UI Javítások
+**Dátum:** 2025. [aktuális dátum]
+**Használt eszköz:** GitHub Copilot Chat
+**Cél:** A sötét mód olvashatóságának javítása. A naptár ikonok láthatóvá tétele (invertálás) és a táblázat szövegszínének korrigálása fehérre.
+
+**Használt Prompt:**
+> @workspace I need to fix some Dark Mode contrast issues.
+> 1. Fix Calendar Icons (filter: invert(1)).
+> 2. Fix Table Text (set color to white in dark mode).
+
+**Eredmény:** A sötét téma most már teljesen kontrasztos és jól használható.
+
+
+## 27. HTML Akadálymentesítés (SonarQube)
+**Dátum:** 2025. [aktuális dátum]
+**Használt eszköz:** GitHub Copilot Chat + SonarQube
+**Cél:** A "Dark Mode" kapcsoló HTML szerkezetének javítása. A `<label>` és az `<input>` elemek összekapcsolása a szabványos "wrapping" (beágyazás) módszerrel.
+
+**Használt Prompt:**
+> @workspace I need to fix a SonarQube HTML issue in 'Frontend/index.html'.
+> The issue is "A form label must be associated with a control".
+> Refactor the switch structure to nest the input inside the label.
+
+**Eredmény:** A kód most már megfelel a W3C szabványoknak, és a felolvasó programok is helyesen értelmezik a kapcsolót.
+
+
+

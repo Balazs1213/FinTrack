@@ -65,7 +65,7 @@
         <div id="dashboard" style="display: none;">
             <div class="dashboard-header">
                 <h1>Welcome, <span id="username-display"></span>!</h1>
-                <button id="logout-btn" class="btn btn-secondary">Logout</button>
+                <button id="settings-btn" class="btn btn-secondary">Settings</button>
             </div>
 
             <!-- Summary Cards -->
@@ -171,6 +171,27 @@
                     </table>
                 </div>
             </div>
+        </div>
+    </div>
+
+    <!-- Settings Modal -->
+    <!-- Settings Modal -->
+    <div id="settings-modal" class="modal">
+        <div class="modal-content">
+            <span class="close-btn" id="close-modal">&times;</span>
+            <h2>Settings</h2>
+            
+            <div class="settings-section">
+                <div class="setting-item">
+                    <label class="switch">
+                        <input type="checkbox" id="darkModeToggle">
+                        <span class="slider round"></span>
+                        <span style="margin-left: 10px;">Dark theme</span>
+                    </label>
+                </div>
+            </div>
+
+            <button id="logout-btn" class="btn btn-secondary btn-logout">Logout</button>
         </div>
     </div>
 
