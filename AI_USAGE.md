@@ -327,3 +327,31 @@
 > 3. Consolidate styles.
 
 **Eredmény:** A CSS fájl mostantól központosított változókat használ, így a téma módosítása egyszerűbb, a kód pedig átláthatóbb.
+
+
+## 24. "Remember Me" Logika Implementálása
+**Dátum:** 2025. [aktuális dátum]
+**Használt eszköz:** GitHub Copilot Chat
+**Cél:** A felhasználói munkamenet kezelése. A checkbox állapotától függően a rendszer vagy a `localStorage`-ba (tartós), vagy a `sessionStorage`-ba (ideiglenes) menti a tokent.
+
+**Használt Prompt:**
+> @workspace I want to implement the "Remember Me" feature with specific storage logic.
+> 1. Add checkbox to index.html.
+> 2. Update app.js to use localStorage if checked, sessionStorage if unchecked.
+> 3. Update startup check to look in both storages.
+
+**Eredmény:** A felhasználó mostantól dönthet, hogy biztonsági okokból kilépjen-e a böngésző bezárásakor, vagy kényelmi okokból bent maradjon.
+
+
+## 24. "Remember Me" Logika Implementálása
+**Dátum:** 2025. [aktuális dátum]
+**Használt eszköz:** GitHub Copilot Chat
+**Cél:** A felhasználói munkamenet kezelése. A checkbox állapotától függően a rendszer vagy a `localStorage`-ba (tartós), vagy a `sessionStorage`-ba (ideiglenes) menti a tokent.
+
+**Használt Prompt:**
+> @workspace I want to implement the "Remember Me" feature with specific storage logic.
+> 1. Add checkbox to index.html.
+> 2. Update app.js to use localStorage if checked, sessionStorage if unchecked.
+> 3. Update startup check to look in both storages.
+
+**Eredmény:** A felhasználó mostantól dönthet, hogy biztonsági okokból kilépjen-e a böngésző bezárásakor, vagy kényelmi okokból bent maradjon.

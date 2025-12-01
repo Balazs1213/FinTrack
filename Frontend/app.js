@@ -38,6 +38,7 @@ loginForm.addEventListener('submit', async (e) => {
     
     const username = document.getElementById('login-username').value;
     const password = document.getElementById('login-password').value;
+    const rememberMe = document.getElementById('rememberMe').checked;
 
     try {
         const response = await fetch(`${API_BASE_URL}/Auth/login`, {
@@ -51,10 +52,13 @@ loginForm.addEventListener('submit', async (e) => {
         const data = await response.json();
 
         if (response.ok) {
-            // Save token and userId to localStorage
-            localStorage.setItem('token', data.token);
-            localStorage.setItem('userId', data.user.id);
-            localStorage.setItem('username', data.user.username);
+            // Choose storage based on Remember Me checkbox
+            const storage = rememberMe ? localStorage : sessionStorage;
+            
+            // Save token and userId to chosen storage
+            storage.setItem('token', data.token);
+            storage.setItem('userId', data.user.id);
+            storage.setItem('username', data.user.username);
 
             // Show success message
             alert('Login Successful!');
@@ -182,10 +186,26 @@ function resetFilters() {
 filterBtn.addEventListener('click', filterTransactions);
 resetBtn.addEventListener('click', resetFilters);
 
+// Helper function to get user data from storage
+function getUserFromStorage() {
+    // Check localStorage first
+    let token = localStorage.getItem('token');
+    let userId = localStorage.getItem('userId');
+    let username = localStorage.getItem('username');
+    
+    // If not in localStorage, check sessionStorage
+    if (!token || !userId) {
+        token = sessionStorage.getItem('token');
+        userId = sessionStorage.getItem('userId');
+        username = sessionStorage.getItem('username');
+    }
+    
+    return { token, userId, username };
+}
+
 // Load transactions
 async function loadTransactions() {
-    const userId = localStorage.getItem('userId');
-    const token = localStorage.getItem('token');
+    const { userId, token } = getUserFromStorage();
 
     if (!userId || !token) return;
 
@@ -313,8 +333,7 @@ function renderChart(transactions) {
 transactionForm.addEventListener('submit', async (e) => {
     e.preventDefault();
 
-    const userId = localStorage.getItem('userId');
-    const token = localStorage.getItem('token');
+    const { userId, token } = getUserFromStorage();
 
     const transactionData = {
         userId: Number.parseInt(userId, 10),
@@ -356,7 +375,7 @@ async function deleteTransaction(id) {
         return;
     }
 
-    const token = localStorage.getItem('token');
+    const { token } = getUserFromStorage();
 
     try {
         const response = await fetch(`${API_BASE_URL}/Transactions/${id}`, {
@@ -404,9 +423,7 @@ logoutBtn.addEventListener('click', () => {
 
 // Check if user is already logged in
 globalThis.addEventListener('DOMContentLoaded', async () => {
-    const token = localStorage.getItem('token');
-    const userId = localStorage.getItem('userId');
-    const username = localStorage.getItem('username');
+    const { token, userId, username } = getUserFromStorage();
 
     if (token && userId) {
         authSection.style.display = 'none';
