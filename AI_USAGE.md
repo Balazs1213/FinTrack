@@ -398,4 +398,18 @@
 **Eredmény:** A kód most már megfelel a W3C szabványoknak, és a felolvasó programok is helyesen értelmezik a kapcsolót.
 
 
+## 28. UI Finomhangolás: Ikonok és Dinamikus Grafikon
+**Dátum:** 2025. [aktuális dátum]
+**Használt eszköz:** GitHub Copilot Chat
+**Cél:** A felhasználói felület csiszolása. A szöveges "Settings" gomb cseréje szabványos fogaskerék ikonra (FontAwesome), valamint a Chart.js grafikon feliratainak dinamikus színezése, hogy Sötét Módban is olvashatóbbak legyenek.
+
+**Használt Prompt:**
+> @workspace I want to polish the UI for the Settings button and the Chart visibility in Dark Mode.
+> 1. Update index.html: Add FontAwesome CDN, replace Settings button text with gear icon.
+> 2. Update style.css: Style .btn-icon (transparent background, hover effect).
+> 3. Update app.js: Dynamically change Chart.js legend color based on 'dark-mode' class and re-render chart on toggle.
+
+**Eredmény:** A fejléc tisztább lett a fogaskerék ikonnal, és a diagram feliratai automatikusan feketére vagy fehérre váltanak a témának megfelelően.
+
+
 

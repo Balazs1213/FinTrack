@@ -70,6 +70,11 @@ if (darkModeToggle) {
             document.body.classList.remove('dark-mode');
             localStorage.setItem('theme', 'light');
         }
+        
+        // Redraw chart with correct text color
+        if (allTransactions.length > 0) {
+            renderChart(allTransactions);
+        }
     });
 }
 
@@ -352,6 +357,7 @@ function updateSummary(transactions) {
     if (balanceEl) balanceEl.textContent = `$${balance.toFixed(2)}`;
 }
 
+
 // Render chart
 function renderChart(transactions) {
     let totalIncome = 0;
@@ -375,6 +381,10 @@ function renderChart(transactions) {
         expenseChart.destroy();
     }
 
+    // Determine text color based on dark mode
+    const isDarkMode = document.body.classList.contains('dark-mode');
+    const textColor = isDarkMode ? 'rgb(224, 224, 224)' : '#333333';
+
     expenseChart = new Chart(ctx, {
         type: 'doughnut',
         data: {
@@ -396,7 +406,8 @@ function renderChart(transactions) {
                         padding: 20,
                         font: {
                             size: 14
-                        }
+                        },
+                        color: textColor
                     }
                 }
             }
