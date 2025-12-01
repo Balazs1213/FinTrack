@@ -86,8 +86,15 @@ public class AuthController : ControllerBase
 
     private string GenerateToken(User user)
     {
-        var securityKey = new SymmetricSecurityKey(
-            Encoding.UTF8.GetBytes(_configuration["Jwt:Key"]!));
+        // Read JWT key from environment variable
+        var jwtKey = Environment.GetEnvironmentVariable("FINTRACK_JWT_KEY");
+        
+        if (string.IsNullOrEmpty(jwtKey))
+        {
+            throw new InvalidOperationException("JWT Key not found in environment variables. Please set FINTRACK_JWT_KEY.");
+        }
+
+        var securityKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(jwtKey));
         var credentials = new SigningCredentials(securityKey, SecurityAlgorithms.HmacSha256);
 
         var claims = new[]
