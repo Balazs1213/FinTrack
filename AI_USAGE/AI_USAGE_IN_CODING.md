@@ -1,7 +1,6 @@
 # MI Használat Dokumentáció - FinTrack
 
 ## 1. Projekt Környezet és Alapok Létrehozása
-**Dátum:** 2025. [aktuális dátum]
 **Használt eszköz:** GitHub Copilot Chat (@workspace)
 **Cél:** A teljes mappaszerkezet, Solution fájl és a projektek (Backend/Frontend) legenerálása parancssori utasításokkal.
 
@@ -21,7 +20,6 @@
 
 
 ## 2. Verziókezelés és GitHub Publikálás
-**Dátum:** 2025. [aktuális dátum]
 **Használt eszköz:** GitHub Copilot Chat
 **Cél:** A helyi git repository inicializálása és a projekt feltöltése GitHub-ra megfelelő leírással.
 
@@ -37,7 +35,6 @@
 
 
 ## 3. Backend Adatmodellek Létrehozása
-**Dátum:** 2025. [aktuális dátum]
 **Használt eszköz:** GitHub Copilot Chat (@workspace)
 **Cél:** A User és Transaction entitások létrehozása C# osztályként, adatbázis annotációkkal.
 
@@ -53,7 +50,6 @@
 
 
 ## 4. Adatbázis Konfiguráció (SQLite)
-**Dátum:** 2025. [aktuális dátum]
 **Használt eszköz:** GitHub Copilot Chat
 **Cél:** Az SQLite adatbázis beállítása a perzisztens adattároláshoz, mivel nincs telepített SQL Server.
 
@@ -67,7 +63,6 @@
 
 
 ## 5. Adatbázis Migráció
-**Dátum:** 2025. [aktuális dátum]
 **Használt eszköz:** GitHub Copilot Chat + CLI
 **Cél:** Az SQLite adatbázis fizikai létrehozása a Code-First migráció segítségével.
 
@@ -79,7 +74,6 @@
 
 
 ## 6. AuthController és Takarítás
-**Dátum:** 2025. [aktuális dátum]
 **Használt eszköz:** GitHub Copilot Chat
 **Cél:** A felesleges minta kód eltávolítása, a Controllers szolgáltatás beüzemelése, és a Regisztráció/Belépés végpontok lefejlesztése jelszó hash-eléssel.
 
@@ -93,7 +87,6 @@
 **Eredmény:** A Program.cs letisztult, és létrejött az AuthController, ami képes regisztrálni és beléptetni felhasználókat BCrypt titkosítással.
 
 ## 7. Backend Tesztelése (Swagger)
-**Dátum:** 2025. [aktuális dátum]
 **Módszer:** A beépített Swagger UI használata.
 **Tesztelt esetek:**
 1. Új felhasználó regisztrációja (Sikeres, 200 OK).
@@ -102,7 +95,6 @@
 
 
 ## 8. Tranzakció Kezelés (CRUD) Megvalósítása
-**Dátum:** 2025. [aktuális dátum]
 **Használt eszköz:** GitHub Copilot Chat
 **Cél:** A pénzügyi tranzakciók létrehozását, lekérdezését, módosítását és törlését végző végpontok (API endpoints) létrehozása.
 
@@ -117,7 +109,6 @@
 
 
 ## 9. CORS Engedélyezése
-**Dátum:** 2025. [aktuális dátum]
 **Használt eszköz:** GitHub Copilot Chat
 **Cél:** A böngésző biztonsági korlátozásának (CORS) feloldása, hogy a Frontend képes legyen adatokat küldeni a Backendnek.
 
@@ -130,7 +121,6 @@
 
 
 ## 10. Backend Mentése (Checkpoint)
-**Dátum:** 2025. [aktuális dátum]
 **Használt eszköz:** GitHub Copilot Chat
 **Cél:** A működő és letesztelt Backend kódjának rögzítése a verziókezelőben a Frontend fejlesztés megkezdése előtt.
 
@@ -144,7 +134,6 @@
 
 
 ## 11. Frontend: Login és Regisztráció
-**Dátum:** 2025. [aktuális dátum]
 **Használt eszköz:** GitHub Copilot Chat
 **Cél:** A modern webes felület (HTML/CSS) és a kommunikációs logika (JS) létrehozása a belépéshez.
 
@@ -159,7 +148,6 @@
 
 
 ## 12. Frontend Integrációs Teszt
-**Dátum:** 2025. [aktuális dátum]
 **Módszer:** Manuális tesztelés böngészőben + DevTools (Network/Application tab).
 **Tesztelt esetek:**
 1. Regisztráció (Sikeres API hívás).
@@ -170,7 +158,6 @@
 
 
 ## 13. Dashboard: Tranzakciókezelés és Diagram
-**Dátum:** 2025. [aktuális dátum]
 **Használt eszköz:** GitHub Copilot Chat
 **Cél:** A tranzakciók CRUD műveleteinek frontend oldali megvalósítása és az adatok vizualizálása Chart.js segítségével.
 
@@ -184,7 +171,6 @@
 
 
 ## 14. Verziókiadás (v1.0)
-**Dátum:** 2025. [aktuális dátum]
 **Használt eszköz:** GitHub Copilot Chat
 **Cél:** A kész alkalmazás (Frontend + Backend) végső állapotának rögzítése és publikálása a verziókezelőben.
 
@@ -198,7 +184,6 @@
 
 
 ## 15. Funkcióbővítés: Szűrés
-**Dátum:** 2025. [aktuális dátum]
 **Használt eszköz:** GitHub Copilot Chat
 **Cél:** Lehetőség biztosítása a tranzakciók szűrésére dátum intervallum és típus (Bevétel/Kiadás) szerint a Frontend oldalon.
 
@@ -212,7 +197,6 @@
 
 
 ## 16. Hibajavítás: Dátum Szűrés
-**Dátum:** 2025. [aktuális dátum]
 **Használt eszköz:** GitHub Copilot Chat
 **Cél:** A dátumszűrő javítása, hogy a kiválasztott kezdő- és végdátum napján történt tranzakciók is megjelenjenek (inkluzív szűrés).
 
@@ -224,7 +208,6 @@
 
 
 ## 17. Validáció: Dátum Intervallum
-**Dátum:** 2025. [aktuális dátum]
 **Használt eszköz:** GitHub Copilot Chat
 **Cél:** Felhasználói hiba kezelése a szűrésnél. Megakadályozzuk, hogy a kezdő dátum későbbi legyen, mint a végdátum.
 
@@ -238,7 +221,6 @@
 
 
 ## 18. Kódminőség és Refaktorálás (SonarQube)
-**Dátum:** 2025. [aktuális dátum]
 **Használt eszköz:** GitHub Copilot Chat + SonarQube
 **Cél:** A statikus kódelemző által talált hibák (Code Smells) javítása a fenntarthatóság és akadálymentesség érdekében.
 
@@ -254,7 +236,6 @@
 
 
 ## 19. Refaktorálás és Véglegesítés
-**Dátum:** 2025. [aktuális dátum]
 **Használt eszköz:** GitHub Copilot Chat + SonarQube
 **Cél:** A kód megtisztítása a statikus elemző visszajelzései alapján (kontraszt javítás, modern ciklusok), valamint a változtatások végleges rögzítése a verziókezelőben.
 
@@ -268,7 +249,6 @@
 
 
 ## 20. Backend Refaktorálás (SonarQube)
-**Dátum:** 2025. [aktuális dátum]
 **Használt eszköz:** GitHub Copilot Chat + SonarQube Cloud
 **Cél:** A backend indításának aszinkronná tétele (S6966 hiba javítása) a megbízhatóság növelése érdekében.
 
@@ -280,7 +260,6 @@
 
 
 ## 21. Adatmodell Szigorítás (SonarQube)
-**Dátum:** 2025. [aktuális dátum]
 **Használt eszköz:** GitHub Copilot Chat + SonarQube Cloud
 **Cél:** Az "under-posting" sérülékenység javítása. Kötelezővé tesszük (`required`) a kulcsfontosságú mezőket a DTO-ban, hogy a szerver ne fogadjon el hiányos adatokat alapértelmezett értékekkel.
 
@@ -292,7 +271,6 @@
 
 
 ## 21. Adatmodell Szigorítás (SonarQube)
-**Dátum:** 2025. [aktuális dátum]
 **Használt eszköz:** GitHub Copilot Chat + SonarQube Cloud
 **Cél:** Az "under-posting" sérülékenység javítása. Kötelezővé tesszük (`required`) a kulcsfontosságú mezőket a DTO-ban, hogy a szerver ne fogadjon el hiányos adatokat alapértelmezett értékekkel.
 
@@ -304,7 +282,6 @@
 
 
 ## 22. Biztonsági Szigorítás: SRI (SonarQube)
-**Dátum:** 2025. [aktuális dátum]
 **Használt eszköz:** GitHub Copilot Chat + SonarQube
 **Cél:** A külső könyvtárak (Chart.js) hitelességének ellenőrzése (S5725). Bevezettük a Subresource Integrity (SRI) használatát.
 
@@ -316,7 +293,6 @@
 
 
 ## 23. CSS Refaktorálás (CSS Variables)
-**Dátum:** 2025. [aktuális dátum]
 **Használt eszköz:** GitHub Copilot Chat
 **Cél:** A stíluslap (style.css) modernizálása és tisztítása CSS változók (:root) bevezetésével. A kód ismétlődéseinek csökkentése és a karbantarthatóság növelése.
 
@@ -330,7 +306,6 @@
 
 
 ## 24. "Remember Me" Logika Implementálása
-**Dátum:** 2025. [aktuális dátum]
 **Használt eszköz:** GitHub Copilot Chat
 **Cél:** A felhasználói munkamenet kezelése. A checkbox állapotától függően a rendszer vagy a `localStorage`-ba (tartós), vagy a `sessionStorage`-ba (ideiglenes) menti a tokent.
 
@@ -344,7 +319,6 @@
 
 
 ## 24. "Remember Me" Logika Implementálása
-**Dátum:** 2025. [aktuális dátum]
 **Használt eszköz:** GitHub Copilot Chat
 **Cél:** A felhasználói munkamenet kezelése. A checkbox állapotától függően a rendszer vagy a `localStorage`-ba (tartós), vagy a `sessionStorage`-ba (ideiglenes) menti a tokent.
 
@@ -358,7 +332,6 @@
 
 
 ## 25. Dark Mode és Beállítások Ablak
-**Dátum:** 2025. [aktuális dátum]
 **Használt eszköz:** GitHub Copilot Chat
 **Cél:** A felhasználói felület modernizálása "Sötét Mód" (Dark Mode) bevezetésével, valamint a fejléc átalakítása egy felugró beállítások ablak segítségével.
 
@@ -373,7 +346,6 @@
 
 
 ## 26. Dark Mode UI Javítások
-**Dátum:** 2025. [aktuális dátum]
 **Használt eszköz:** GitHub Copilot Chat
 **Cél:** A sötét mód olvashatóságának javítása. A naptár ikonok láthatóvá tétele (invertálás) és a táblázat szövegszínének korrigálása fehérre.
 
@@ -386,7 +358,6 @@
 
 
 ## 27. HTML Akadálymentesítés (SonarQube)
-**Dátum:** 2025. [aktuális dátum]
 **Használt eszköz:** GitHub Copilot Chat + SonarQube
 **Cél:** A "Dark Mode" kapcsoló HTML szerkezetének javítása. A `<label>` és az `<input>` elemek összekapcsolása a szabványos "wrapping" (beágyazás) módszerrel.
 
@@ -399,7 +370,6 @@
 
 
 ## 28. UI Finomhangolás: Ikonok és Dinamikus Grafikon
-**Dátum:** 2025. [aktuális dátum]
 **Használt eszköz:** GitHub Copilot Chat
 **Cél:** A felhasználói felület csiszolása. A szöveges "Settings" gomb cseréje szabványos fogaskerék ikonra (FontAwesome), valamint a Chart.js grafikon feliratainak dinamikus színezése, hogy Sötét Módban is olvashatóbbak legyenek.
 
@@ -413,7 +383,6 @@
 
 
 ## 29. Biztonság: Valódi JWT Implementáció (30 napos lejárattal)
-**Dátum:** 2025. [aktuális dátum]
 **Használt eszköz:** GitHub Copilot Chat
 **Cél:** A tesztjellegű "fake" token leváltása ipari szabványú JSON Web Token-re (JWT). Kiemelt szempont volt a 30 napos érvényességi idő beállítása, hogy a vizsgaidőszakban és a javítás során is garantáltan működjön a belépés.
 
@@ -428,7 +397,6 @@
 
 
 ## 30. Biztonság: Titkos Kulcsok Védelme (SonarQube)
-**Dátum:** 2025. [aktuális dátum]
 **Használt eszköz:** GitHub Copilot Chat + SonarQube Cloud
 **Cél:** A JWT aláíró kulcs eltávolítása a forráskódból és a konfigurációs fájlokból (Hardcoded Secrets). Átállás Környezeti Változók (Environment Variables) használatára a SonarQube kritikus hibajelzése alapján.
 
