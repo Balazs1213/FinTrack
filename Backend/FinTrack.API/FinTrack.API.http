@@ -4,3 +4,8 @@ GET {{FinTrack.API_HostAddress}}/weatherforecast/
 Accept: application/json
 
 ###
+
+### Generate demo data
+POST {{FinTrack.API_HostAddress}}/api/Seed/generate-demo-data
+
+###

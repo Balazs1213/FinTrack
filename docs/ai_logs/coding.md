@@ -410,3 +410,32 @@
 **Eredmény:** A titkos kulcs többé nincs a verziókezelőben. A futtató környezet (vagy a VS Code debugger) injektálja azt, így a GitHub-ra feltöltött kód biztonságos.
 
 
+## 31. Tesztadat Generálás (Data Seeding)
+**Használt eszköz:** GitHub Copilot Chat (@workspace)
+**Cél:** A bemutató és tesztelés támogatása egy automatikus adatfeltöltő funkcióval. A cél egy "TestUser2" felhasználó létrehozása és feltöltése nagyszámú (50 db), véletlenszerű, de reális tranzakcióval (bevétel/kiadás vegyesen), hogy a Dashboard és a diagramok működése látványosan demonstrálható legyen.
+
+**Használt Prompt:**
+> @workspace I need to populate the database with demo data for a presentation.
+> Please create a new controller named `SeedController.cs` inside the `Backend/FinTrack.API/Controllers` folder.
+> The controller should have one endpoint: `POST /api/Seed/generate-demo-data`.
+> It needs to do the following:
+> 1. Create User: Check if "TestUser2" exists, if not create with hashed password.
+> 2. Generate Transactions: Create 50 random transactions (Income/Expense) with realistic categories and amounts.
+> 3. Save to database.
+
+**Eredmény:** Létrejött a `SeedController`, amelyen keresztül egyetlen API hívással (Swaggerből) inicializálható egy teljes tesztkörnyezet, így nem szükséges manuálisan rögzíteni az adatokat a bemutatóhoz.
+
+
+## 32. Tesztadat Generálás Finomhangolása (Dinamikus Felhasználók)
+**Használt eszköz:** GitHub Copilot Chat (@workspace)
+**Cél:** A `SeedController` továbbfejlesztése, hogy minden futtatáskor garantáltan új, egyedi felhasználót hozzon létre (pl. TestUser1, TestUser2...), elkerülve a névütközéseket és az adatok keveredését az ismételt demók során.
+
+**Használt Prompt:**
+> @workspace I want to improve the `SeedController` to create a UNIQUE user every time I run it, instead of always using "TestUser2".
+> Please modify the `GenerateDemoData` method in `Backend/FinTrack.API/Controllers/SeedController.cs` with the following logic:
+> 1. Find the next available ID: Parse existing "TestUserX" names, find max number, increment by 1.
+> 2. Password: Use "test" + same number.
+> 3. Return Message: API should state the NEW credentials created.
+> 4. Keep Transaction Logic: Generate 50 random transactions for this new user.
+
+**Eredmény:** A seeder mostantól intelligensen figyeli az adatbázist, és mindig a következő szabad sorszámmal hoz létre tesztfelhasználót (pl. TestUser5), így a bemutató korlátlan alkalommal megismételhető "tiszta lappal".
