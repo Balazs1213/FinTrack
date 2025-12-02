@@ -46,3 +46,22 @@
 > 3. Commit and push these fixes.
 
 **Eredmény:** A mappaszerkezet egységesítésre került, és a markdown hivatkozások relatív útvonala javítva lett, így a képek helyesen megjelennek a GitHub felületén is.
+
+
+## 4. Projekt Struktúra Szabványosítása
+**Használt eszköz:** GitHub Copilot Chat (@workspace)
+**Cél:** A projekt mappaszerkezetének átalakítása ipari sztenderdek szerint. A szétszórt dokumentációs mappák (`AI_USAGE`, `Documentation`, `Specification`) összevonása egyetlen központi `docs` könyvtárba, valamint a fájlok és mappák átnevezése (pl. `Pictures` -> `images`) és a hivatkozások automatikus javítása.
+
+**Használt Prompt:**
+> @workspace I want to reorganize the project structure to follow industry standards for documentation.
+> Currently, I have scattered folders: `AI_USAGE`, `Documentation`, and `Specification`.
+> Please provide the terminal commands (bash) to perform the following cleanup:
+> 1. Create a main directory: Create a folder named `docs` in the root.
+> 2. Move Images: Move `Documentation/Pictures` to `docs/images`.
+> 3. Move & Rename Manual: Move `Documentation/Documentation.md` to `docs/user_manual.md`.
+> 4. Move & Rename Spec: Move `Specification/Specification.md` to `docs/specification.md`.
+> 5. Organize AI Logs: Move AI usage files to `docs/ai_logs/`.
+> 6. Clean up: Remove empty folders.
+> CRITICAL: Provide instructions to update image links inside the markdown files.
+
+**Eredmény:** Létrejött a tiszta `docs/` struktúra, a markdown fájlokban a képhivatkozások frissültek (`images/` útvonalra), a gyökérkönyvtár pedig letisztult.
