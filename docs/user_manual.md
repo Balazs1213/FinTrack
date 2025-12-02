@@ -142,7 +142,7 @@ dotnet run --launch-profile "https"
 ✅ **Ellenőrzés:** Nyisd meg a böngészőben: `https://localhost:7264/swagger`  
 Itt tesztelheted az API végpontokat (pl. POST /api/Auth/register).
 
-![Swagger API](Pictures/swagger.png)
+![Swagger API](images/swagger.png)
 
 ### 3.4 Frontend Indítása
 
@@ -175,7 +175,7 @@ Itt tesztelheted az API végpontokat (pl. POST /api/Auth/register).
    - ❌ **Kikapcsolva:** A token a `sessionStorage`-ba kerül, amely a böngésző/fül bezárásakor törlődik (növelt biztonság közös számítógépeken).
 3. Kattints a **"Login"** gombra.
 
-![Bejelentkezési felület](Pictures/login.png)
+![Bejelentkezési felület](images/login.png)
 
 **Sikeres belépés után:**
 - A rendszer lekéri a felhasználói tranzakciókat.
@@ -184,7 +184,7 @@ Itt tesztelheted az API végpontokat (pl. POST /api/Auth/register).
 
 ### 4.2 Dashboard (Főoldal)
 
-![Dashboard Sötét Módban](Pictures/dashboard.png)
+![Dashboard Sötét Módban](images/dashboard.png)
 
 #### **Pénzügyi Összegzés (Summary Cards)**
 
@@ -219,7 +219,7 @@ A bal oldali űrlapon a következő mezőket kell kitölteni:
    - **Expense:** Kiadás (pl. étel, számla)
 5. **Description (Optional):** Opcionális megjegyzés mező (max. 200 karakter).
 
-![Új Tranzakció Űrlap](Pictures/transaction.png)
+![Új Tranzakció Űrlap](images/transaction.png)
 
 **Mentés:**
 - Kattints az **"Add Transaction"** gombra.
