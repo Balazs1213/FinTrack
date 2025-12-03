@@ -48,7 +48,7 @@
 **Eredmény:** A specifikáció most már konzisztens az elkészült angol nyelvű szoftverrel, a szakmai rövidítések pedig közérthetővé váltak a hozzáadott glosszárium segítségével.
 
 
-## 2. Prompt Engineering és Adminisztráció Támogatása
+## 4. Prompt Engineering és Adminisztráció Támogatása
 **Használt eszköz:** Google Gemini 2.5 Pro
 **Cél:** A fejlesztés hatékonyságának növelése azáltal, hogy a GitHub Copilot számára (amely angolul és kontextus-alapúan működik a legjobban) precíz, strukturált, szakmai angol nyelvű utasításokat generáltatunk. Továbbá a projekt adminisztrációjának (AI naplózás) automatizálása a megfelelő Markdown formátum előállításával.
 
